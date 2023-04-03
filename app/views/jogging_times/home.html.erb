@@ -1,0 +1,23 @@
+<div class="col-md-4">
+    <%= form_with(model: @time, local: true) do |f| %>
+
+        <%= f.label :date, "Date:" %>
+        <%= f.date_field :date, class: 'form-control' %>
+
+        <%= f.label :date, "Jogging time:" %>
+        <%= f.number_field :hours, class: 'form-control', step: 1, placeholder: 'h' %>
+        <%= f.number_field :minutes, class: 'form-control', step: 1, placeholder: 'min' %>
+        <%= f.number_field :seconds, class: 'form-control', step: 1, placeholder: 's' %>
+
+
+        <%= f.label :date, "Distance:" %>
+        <%= f.number_field :distance, placeholder: 'km', in: 0.0..100.0, step: 0.1, class: 'form-control' %>
+
+        <%= f.submit "Save", class: "btn btn-primary" %>
+
+    <% end %>
+
+</div>
+<div class="col-md-8">
+
+</div>
