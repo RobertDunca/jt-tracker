@@ -6,4 +6,8 @@ class User < ApplicationRecord
 
   has_many :jogging_times
 
+  def my_times
+    JoggingTime.where("user_id = ?", id)
+  end
+
 end

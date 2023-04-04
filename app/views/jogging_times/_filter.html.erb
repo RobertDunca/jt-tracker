@@ -1,0 +1,22 @@
+<%= form_with(model: JoggingTime, local: true) do |form| %>
+    <div class="card mb-4">
+        <div class="card-header text-start">
+            <h5>Filter jogging times by date</h5>
+        </div>
+        <div class="card-body">
+            <div class="row d-flex justify-content-center my-">
+            <div class="col-md-3">
+                <%= form.label :start_date %>
+                <%= form.date_field :start_date, class: "form-control" %>
+            </div>
+            <div class="col-md-3">
+                <%= form.label :end_date %>
+                <%= form.date_field :end_date, class: "form-control" %>
+            </div>
+            <div class="col-md-3 d-flex justify-content-center my-2">
+                <%= form.submit "Filter", class: "btn btn-primary" %>
+            </div>
+        </div>
+        </div>
+    </div>
+<% end %>

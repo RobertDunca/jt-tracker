@@ -1,0 +1,28 @@
+<li id="time-<%= jogging_time.id %>">
+    <div class="card my-2">
+        <div class="row py-2">
+            <div class="col-md-2 px-1">
+                <%= jogging_time.date %>
+            </div>
+            <div class="col-md-4 px-0">
+                Average speed:
+                <%= jogging_time.average_speed %>
+                km/h
+            </div>
+            <div class="col-md-2 px-0">
+                Time:
+                <%= jogging_time.formatted_time %>
+            </div>
+            <div class="col-md-2 px-0">
+                Distance:
+                <%= jogging_time.distance %>
+                km
+            </div>
+            <div class="col-md-2">
+                <%= link_to 'Delete', jogging_time, method: :delete %>
+                <%= link_to 'Update', edit_jogging_time_path(jogging_time) %>
+            </div>
+        </div>
+    </div>
+</li>
+
