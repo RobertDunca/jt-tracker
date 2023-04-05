@@ -3,8 +3,14 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
+  enum role: [:user, :user_manager, :admin]
+  after_initialize :set_default_role, if: :new_record?
 
   has_many :jogging_times
+
+  def set_default_role
+    self.role ||= :user
+  end
 
   def my_times
     JoggingTime.where("user_id = ?", id)
