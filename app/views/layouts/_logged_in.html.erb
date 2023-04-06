@@ -1,0 +1,12 @@
+<ul class="navbar-nav ms-auto">
+    <% if current_user.role == "user" && params[:controller] == "jogging_times"  && params[:action] == "index" || params[:action] == 'create' %>
+    <li class="nav-item">
+        <a type="button" class="nav-link" data-bs-toggle="modal" data-bs-target="#reportModal">
+        Weekly report
+        </a>
+    </li>
+    <% end %>
+    <li class="nav-item">
+    <%= link_to "LOGOUT", destroy_user_session_path, method: :delete, class: "nav-link" %>
+    </li>
+</ul>

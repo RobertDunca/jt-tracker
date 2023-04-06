@@ -1,5 +1,20 @@
 <% if @jogging_times.any? %>
-  <ol>
+  <table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Date</th>
+      <th scope="col">Average speed</th>
+      <th scope="col">Distance</th>
+      <th scope="col">Duration</th>
+      <th scope="col">Actions</th>
+    </tr>
+  </thead>
+  <tbody>
     <%= render @jogging_times %>
-  </ol>
+  </tbody>
+  </table>
+<% else %>
+<div class="container text-center">
+  <h3>There are no jogging times saved yet</h3>
+</div>
 <% end %>

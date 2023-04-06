@@ -1,0 +1,28 @@
+<!-- Modal -->
+<div class="modal fade" id="reportModal" tabindex="-1" aria-labelledby="reportModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" id="reportModalLabel"><strong>Weekly report</strong></h4>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+            <% @weeks.each do |week| %>
+                <div class="card my-3">
+                    <div class="card-header">
+                        <h5>Week <%= "#{week[:start_date].strftime('%d/%m/%Y')} - #{week[:end_date].strftime('%d/%m/%Y')}" %></h5>
+                    </div>
+                    <div class="card-body">
+                        <table>
+                            <tr>
+                                <td class="pe-3">Average speed: <%= week[:avg_speed] %> km/h</td>
+                                <td class="ps-3">Total distance: <%= week[:total_distance] %> km</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            <% end %>
+      </div>
+    </div>
+  </div>
+</div>
