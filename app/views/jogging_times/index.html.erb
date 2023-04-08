@@ -21,6 +21,7 @@
         <% elsif current_user.admin? %>
             <div class="container">
                 <h3 class="text-center my-4">Jogging Times</h3>
+                <%= link_to "Save new jogging time", new_jogging_time_path, class: "btn btn-primary my-3" %>
                 <%= render 'jogging_times/jogging_times' %>
             </div>
         <% end %>

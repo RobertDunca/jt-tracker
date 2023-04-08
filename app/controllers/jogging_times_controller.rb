@@ -15,6 +15,8 @@ class JoggingTimesController < ApplicationController
 
   def new
     if current_user.admin?
+      users = User.all
+      @users = users.map { |user| ["#{user.username}", user.id] }
       @jogging_time = JoggingTime.new
     else
       render html: "Access denied"
@@ -39,6 +41,9 @@ class JoggingTimesController < ApplicationController
         @jogging_times = JoggingTime.all
         render :index
       else
+        users = User.all
+        @users = users.map { |user| ["#{user.username}", user.id] }
+        @jogging_time = JoggingTime.new
         render :new
       end
     end
