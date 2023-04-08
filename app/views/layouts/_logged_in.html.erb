@@ -1,10 +1,26 @@
 <ul class="navbar-nav ms-auto">
-    <% if current_user.role == "user" && params[:controller] == "jogging_times"  && params[:action] == "index" || params[:action] == 'create' %>
-    <li class="nav-item">
-        <a type="button" class="nav-link" data-bs-toggle="modal" data-bs-target="#reportModal">
-        Weekly report
-        </a>
-    </li>
+    <% if current_user.user?  %>
+        <% if params[:controller] == "jogging_times"  && params[:action] == "index" || params[:action] == 'create' %>
+            <li class="nav-item">
+                <a type="button" class="nav-link" data-bs-toggle="modal" data-bs-target="#reportModal">
+                Weekly report
+                </a>
+            </li>
+        <% end %>
+        <li class="nav-item">
+            <%= link_to "My times", jogging_times_path, class: "nav-link" %>
+        </li>
+    <% elsif current_user.admin? %>
+        <li class="nav-item">
+            <%= link_to "Jogging times", jogging_times_path, class: "nav-link" %>
+        </li>
+        <li class="nav-item">
+            <%= link_to "Users", users_path, class: "nav-link" %>
+        </li>
+    <% elsif current_user.user_manager? %>
+        <li class="nav-item">
+            <%= link_to "Users", users_path, class: "nav-link" %>
+        </li>
     <% end %>
     <li class="nav-item">
     <%= link_to "LOGOUT", destroy_user_session_path, method: :delete, class: "nav-link" %>

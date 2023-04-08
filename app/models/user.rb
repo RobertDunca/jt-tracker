@@ -6,7 +6,7 @@ class User < ApplicationRecord
   enum role: [:user, :user_manager, :admin]
   after_initialize :set_default_role, if: :new_record?
 
-  has_many :jogging_times
+  has_many :jogging_times, dependent: :destroy
 
   def set_default_role
     self.role ||= :user
@@ -14,6 +14,10 @@ class User < ApplicationRecord
 
   def my_times
     JoggingTime.where("user_id = ?", id)
+  end
+
+  def has_permission?
+    self.role == 'user_manager' || self.role == 'admin'
   end
 
 end

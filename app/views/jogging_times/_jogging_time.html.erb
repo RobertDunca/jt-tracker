@@ -1,5 +1,6 @@
 
 <tr id="time-<%= jogging_time.id %>">
+<%if current_user.user? %>
     <th scope="row"><%= jogging_time.date.strftime("%d-%m-%y") %></th>
     <td><%= jogging_time.average_speed %> km/h</td>
     <td><%= jogging_time.distance %> km</td>
@@ -8,4 +9,14 @@
         <%= link_to 'Delete', jogging_time, method: :delete %>
         <%= link_to 'Update', edit_jogging_time_path(jogging_time) %>
     </td>
+<% elsif current_user.admin? %>
+    <th scope="row"><%= jogging_time.id %></th>
+    <td><%= jogging_time.date.strftime("%d-%m-%y") %></td>
+    <td><%= jogging_time.user_id %></td>
+    <td>
+        <%= link_to 'Delete', jogging_time, method: :delete %>
+        <%= link_to 'Update', edit_jogging_time_path(jogging_time) %>
+    </td>
+<% end %>
+
 </tr>

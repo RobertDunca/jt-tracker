@@ -1,0 +1,10 @@
+<tr id="user-<%= user.id %>">
+    <th scope="row"><%= user.id %></th>
+    <td><%= user.email %></td>
+    <td><%= user.username %></td>
+    <td><%= user.role %></td>
+    <td>
+        <%= link_to 'Delete', user_registration_path, method: :delete %>
+        <%= link_to 'Update', user_registration_path, method: :patch %>
+    </td>
+</tr>

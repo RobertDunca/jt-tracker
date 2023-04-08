@@ -2,22 +2,30 @@
 
 <section class="pt-4">
     <div class="container">
-        <div class="row">
-            <div class="col-md-4 d-flex justify-content-center">
-                <div class="container px-0">
-                    <%= render 'jogging_times/form' %>
+        <% if current_user.user? %>
+            <%= render 'jogging_times/weekly_report' %>
+            <div class="row">
+                <div class="col-md-4 d-flex justify-content-center">
+                    <div class="container px-0">
+                        <%= render 'jogging_times/form' %>
+                    </div>
+                </div>
+                <div class="col-md-8 text-center ps-5">
+                        <h2><strong>Jogging times</strong></h2>
+                        <%= render 'jogging_times/filter' %>
+                    <div class="row">
+                        <%= render 'jogging_times/jogging_times' %>
+                    </div>
                 </div>
             </div>
-            <div class="col-md-8 text-center ps-5">
-                    <h2><strong>Jogging times</strong></h2>
-                    <%= render 'jogging_times/filter' %>
-                <div class="row">
-                    <%= render 'jogging_times/jogging_times' %>
-                </div>
+        <% elsif current_user.admin? %>
+            <div class="container">
+                <h3 class="text-center my-4">Jogging Times</h3>
+                <%= render 'jogging_times/jogging_times' %>
             </div>
-        </div>
+        <% end %>
     </div>
 </section>
 
-<%= render 'jogging_times/weekly_report' %>
+
 
