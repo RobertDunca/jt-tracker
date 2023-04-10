@@ -5,7 +5,8 @@ class JoggingTime < ApplicationRecord
   default_scope -> { order(date: :desc) }
 
   validates :date, :distance, :duration, :user_id, presence: true
-  validates :duration, :distance, numericality: { greater_than_or_equal_to: 1 }
+  validates :duration, numericality: { greater_than_or_equal_to: 1 }
+  validates :distance, numericality: { greater_than_or_equal_to: 0.1 }
   validates :hours, :minutes, :seconds, numericality: {
                                                         only_integer: true,
                                                         greater_than_or_equal_to: 0,

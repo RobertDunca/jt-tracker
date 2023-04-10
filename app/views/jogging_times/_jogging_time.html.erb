@@ -6,7 +6,7 @@
     <td><%= jogging_time.distance %> km</td>
     <td><%= jogging_time.formatted_time %></td>
     <td>
-        <%= link_to 'Delete', jogging_time, method: :delete %>
+        <%= link_to 'Delete', jogging_time, method: :delete, remote: true, class: "delete_jt" %>
         <%= link_to 'Update', edit_jogging_time_path(jogging_time) %>
     </td>
 <% elsif current_user.admin? %>
@@ -16,7 +16,7 @@
     <td><%= jogging_time.distance %> km</td>
     <td><%= jogging_time.formatted_time %></td>
     <td>
-        <%= link_to 'Delete', jogging_time, method: :delete %>
+        <%= link_to 'Delete', jogging_time, method: :delete, remote: true, class: "delete_jt" %>
         <%= link_to 'Update', edit_jogging_time_path(jogging_time) %>
     </td>
 <% end %>

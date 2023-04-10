@@ -28,7 +28,12 @@ class JoggingTimesController < ApplicationController
     if current_user.user?
       @jogging_time = current_user.jogging_times.build(jogging_time_params)
       if @jogging_time.save
-        redirect_to root_url
+        @jogging_times = current_user.my_times
+        respond_to do |format|
+          format.html { redirect_to jogging_times_path }
+          format.json { head :no_content }
+          format.js   { render layout: false }
+         end
       else
         @jogging_times = current_user.my_times
         weekly_report
@@ -57,7 +62,7 @@ class JoggingTimesController < ApplicationController
 
   def update
       if @jogging_time.update(jogging_time_params)
-        redirect_to root_url
+        redirect_to jogging_times_path
       else
         if current_user.admin?
           users = User.all
@@ -70,7 +75,11 @@ class JoggingTimesController < ApplicationController
 
   def destroy
     @jogging_time.destroy
-    redirect_to request.referrer || root_url
+    respond_to do |format|
+      format.html { redirect_to request.referrer || jogging_times_path }
+      format.json { head :no_content }
+      format.js   { render layout: false }
+    end
   end
 
   private
@@ -84,7 +93,7 @@ class JoggingTimesController < ApplicationController
     def correct_user
       if current_user.user?
         @jogging_time = current_user.jogging_times.find_by(id: params[:id])
-        redirect_to root_url if @jogging_time.nil?
+        redirect_to jogging_times_path if @jogging_time.nil?
       elsif current_user.admin?
         @jogging_time = JoggingTime.find_by(id: params[:id])
         redirect_to :back if @jogging_time.nil?

@@ -1,0 +1,20 @@
+<% if @jogging_time.errors.any? %>
+  // Show error messages in the form
+  $("#new_jogging_time").prepend("<div class='alert alert-danger'><%= j render partial: 'shared/errors', locals: { record: @jogging_time } %></div>");
+<% end %>
+<%# Find the index where the new jogging time should be inserted %>
+<% index = @jogging_times.find_index { |jt| jt.date < @jogging_time.date } || @jogging_times.size %>
+
+<%# Render the new jogging time partial %>
+var jogging_time_partial = '<%= j render @jogging_time %>';
+
+<%# Insert the new jogging time partial in the correct position %>
+<% if index == 0 %>
+  $('tbody').prepend(jogging_time_partial);
+<% else %>
+  $('tbody tr').eq(<%= index - 1 %>).after(jogging_time_partial);
+<% end %>
+
+<%# Clear the form %>
+$('form')[0].reset();
+

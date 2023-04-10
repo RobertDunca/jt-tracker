@@ -3,7 +3,7 @@
         <h4>Save new jogging time</h4>
     </div>
     <div class="card-body">
-    <%= form_with(model: @jogging_time, local: true) do |f| %>
+    <%= form_with(model: @jogging_time, local: false) do |f| %>
         <div class="row">
             <%= render 'shared/errors', object: f.object %>
         </div>
