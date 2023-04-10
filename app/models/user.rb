@@ -16,8 +16,4 @@ class User < ApplicationRecord
     JoggingTime.where("user_id = ?", id)
   end
 
-  def has_permission?
-    self.role == 'user_manager' || self.role == 'admin'
-  end
-
 end

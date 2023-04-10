@@ -11,8 +11,10 @@
     </td>
 <% elsif current_user.admin? %>
     <th scope="row"><%= jogging_time.id %></th>
+    <td><%= jogging_time.user.username %></td>
     <td><%= jogging_time.date.strftime("%d-%m-%y") %></td>
-    <td><%= jogging_time.user_id %></td>
+    <td><%= jogging_time.distance %> km</td>
+    <td><%= jogging_time.formatted_time %></td>
     <td>
         <%= link_to 'Delete', jogging_time, method: :delete %>
         <%= link_to 'Update', edit_jogging_time_path(jogging_time) %>

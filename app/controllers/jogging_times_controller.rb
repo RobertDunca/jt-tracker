@@ -38,26 +38,34 @@ class JoggingTimesController < ApplicationController
     elsif current_user.admin?
       @jogging_time = JoggingTime.new jogging_time_params
       if @jogging_time.save
-        @jogging_times = JoggingTime.all
+        @jogging_times = JoggingTime.reorder :id
         render :index
       else
         users = User.all
         @users = users.map { |user| ["#{user.username}", user.id] }
-        @jogging_time = JoggingTime.new
         render :new
       end
     end
   end
 
   def edit
+    if current_user.admin?
+      users = User.all
+      @users = users.map { |user| ["#{user.username}", user.id] }
+    end
   end
 
   def update
-    if @jogging_time.update(jogging_time_params)
-      redirect_to root_url
-    else
-      render :edit
-    end
+      if @jogging_time.update(jogging_time_params)
+        redirect_to root_url
+      else
+        if current_user.admin?
+          users = User.all
+          @users = users.map { |user| ["#{user.username}", user.id] }
+        end
+        render :edit
+      end
+
   end
 
   def destroy
@@ -68,7 +76,9 @@ class JoggingTimesController < ApplicationController
   private
 
     def jogging_time_params
-      params.require(:jogging_time).permit(:date, :distance, :hours, :minutes, :seconds)
+      params_list = %i[date distance hours minutes seconds]
+      params_list += [:user_id] if current_user.admin?
+      params.require(:jogging_time).permit(params_list)
     end
 
     def correct_user

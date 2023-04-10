@@ -5,14 +5,14 @@
     <div class="card-body">
     <%= form_with(model: @jogging_time, local: true) do |f| %>
         <div class="row">
-            <%= render 'jogging_times/errors', object: f.object %>
+            <%= render 'shared/errors', object: f.object %>
         </div>
 
         <% if current_user.admin? %>
             <div class="row pt-3">
             <%= f.label :user_id, "User:" %>
                 <div class="col-md-3">
-                    <%= f.select :user_id, @users,{}, { class: 'form-select' } %>
+                    <%= f.select :user_id, @users,{ selected: 2 }, { class: 'form-select' } %>
                 </div>
             </div>
         <% end %>

@@ -3,12 +3,6 @@
 class Users::RegistrationsController < Devise::RegistrationsController
   before_action :configure_sign_up_params, only: [:create]
   before_action :configure_account_update_params, only: [:update]
-  before_action :authenticate_user!, only: [:index]
-
-  def index
-    redirect_to jogging_times_path unless current_user.has_permission?
-    @users = User.all
-  end
 
   # GET /resource/sign_up
   def new

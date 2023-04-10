@@ -5,6 +5,6 @@
     <td><%= user.role %></td>
     <td>
         <%= link_to 'Delete', user_registration_path, method: :delete %>
-        <%= link_to 'Update', user_registration_path, method: :patch %>
+        <%= link_to 'Update', edit_user_path(user.id) %>
     </td>
 </tr>

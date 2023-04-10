@@ -1,0 +1,26 @@
+<% if current_user&.user? %>
+    <div class="container">
+        <h1 class="text-center my-3">Welcome to Jogging Times Tracker!</h1>
+        <p>You can explore the site using the navigation menu above.</p>
+    </div>
+<% elsif current_user&.admin? %>
+    <div class="container">
+        <h1 class="text-center my-3">Welcome back!</h1>
+        <div class="row">
+            <h5></h5>
+            <h4>Manage <%= link_to "users", users_path %></h4>
+        </div>
+        <div class="row">
+            <h5></h5>
+            <h4>Manage <%= link_to "jogging_times", jogging_times_path %></h4>
+        </div>
+    </div>
+<% elsif current_user&.user_manager? %>
+    <div class="container">
+        <h1 class="text-center my-3">Welcome back!</h1>
+        <div class="row">
+            <h5></h5>
+            <h4>Manage <%= link_to "users", users_path %></h4>
+        </div>
+    </div>
+<% end %>
