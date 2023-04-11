@@ -3,7 +3,7 @@
 <section class="pt-4">
     <div class="container">
         <% if current_user.user? %>
-            <%= render 'jogging_times/weekly_report' %>
+            <div id="weekly_report_modal"><%= render 'jogging_times/weekly_report' %></div>
             <div class="row">
                 <div class="col-md-4 d-flex justify-content-center">
                     <div class="container px-0">
@@ -14,7 +14,7 @@
                         <h2><strong>Jogging times</strong></h2>
                         <%= render 'jogging_times/filter' %>
                     <div class="row">
-                        <%= render 'jogging_times/jogging_times' %>
+                        <div id="jogging_times"><%= render 'jogging_times/jogging_times' %></div>
                     </div>
                 </div>
             </div>

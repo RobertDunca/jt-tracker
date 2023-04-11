@@ -1,3 +1,5 @@
 $('.delete_jt').bind('ajax:success', function() {
   $(this).closest('tr').fadeOut();
 });
+$("#weekly_report_modal").html("<%= escape_javascript(render("weekly_report")) %>");
+

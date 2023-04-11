@@ -29,15 +29,20 @@ class JoggingTimesController < ApplicationController
       @jogging_time = current_user.jogging_times.build(jogging_time_params)
       if @jogging_time.save
         @jogging_times = current_user.my_times
+        weekly_report
         respond_to do |format|
           format.html { redirect_to jogging_times_path }
-          format.json { head :no_content }
-          format.js   { render layout: false }
-         end
+          # format.json { head :no_content }
+          format.js   {}
+        end
       else
         @jogging_times = current_user.my_times
         weekly_report
-        render :index
+        respond_to do |format|
+          format.html { render :index }
+          # format.json { head :no_content }
+          format.js   {}
+        end
       end
 
     elsif current_user.admin?
@@ -75,10 +80,12 @@ class JoggingTimesController < ApplicationController
 
   def destroy
     @jogging_time.destroy
+    @jogging_times = current_user.my_times
+    weekly_report
     respond_to do |format|
       format.html { redirect_to request.referrer || jogging_times_path }
-      format.json { head :no_content }
-      format.js   { render layout: false }
+      # format.json { head :no_content }
+      format.js   {}
     end
   end
 

@@ -41,8 +41,8 @@ class UsersController < ApplicationController
     User.find(params[:id]).destroy
     respond_to do |format|
       format.html { redirect_to request.referrer || users_path }
-      format.json { head :no_content }
-      format.js   { render layout: false }
+      # format.json { head :no_content }
+      format.js   {}
     end
   end
 

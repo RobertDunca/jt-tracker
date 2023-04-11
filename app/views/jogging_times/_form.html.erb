@@ -4,7 +4,7 @@
     </div>
     <div class="card-body">
     <%= form_with(model: @jogging_time, local: false) do |f| %>
-        <div class="row">
+        <div class="row" id="errors">
             <%= render 'shared/errors', object: f.object %>
         </div>
 
