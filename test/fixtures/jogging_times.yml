@@ -3,7 +3,23 @@
 one:
   date: 2023-04-03
   distance: 1.5
-  duration: 2023-04-03 09:54:42
-  user: one
+  duration: 3600
+  user: user_1
+
+<% 10.times do |n| %>
+jt_<%= n %>:
+ date: 2023-04-04
+ distance: 1.5
+ duration: <%= (n + 1) * 200 %>
+ user: user_1
+<% end %>
+
+<% 10.times do |n| %>
+jt_<%= n %>_2:
+ date: 2023-04-04
+ distance: 1.5
+ duration: <%= (n + 1) * 200 %>
+ user: user_2
+<% end %>
 
 

@@ -10,6 +10,8 @@ class JoggingTimesController < ApplicationController
       filter_jogging_times if params[:from_date].present? || params[:to_date].present?
     elsif current_user.admin?
       @jogging_times = JoggingTime.reorder :id
+    else
+      redirect_to root_url
     end
   end
 
@@ -19,7 +21,7 @@ class JoggingTimesController < ApplicationController
       @users = users.map { |user| ["#{user.username}", user.id] }
       @jogging_time = JoggingTime.new
     else
-      render html: "Access denied"
+      redirect_to root_url
     end
   end
 
@@ -48,13 +50,16 @@ class JoggingTimesController < ApplicationController
     elsif current_user.admin?
       @jogging_time = JoggingTime.new jogging_time_params
       if @jogging_time.save
-        @jogging_times = JoggingTime.reorder :id
-        render :index
+        # @jogging_times = JoggingTime.reorder :id
+        redirect_to jogging_times_path
       else
         users = User.all
         @users = users.map { |user| ["#{user.username}", user.id] }
         render :new
       end
+
+    else
+      redirect_to root_url
     end
   end
 
@@ -104,6 +109,8 @@ class JoggingTimesController < ApplicationController
       elsif current_user.admin?
         @jogging_time = JoggingTime.find_by(id: params[:id])
         redirect_to :back if @jogging_time.nil?
+      elsif current_user.user_manager?
+        redirect_to root_url
       end
 
     end
