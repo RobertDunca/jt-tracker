@@ -13,10 +13,18 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_params)
     if @user.save
-      redirect_to users_path
+      respond_to do |format|
+        format.html { redirect_to users_path }
+        # format.json { head :no_content }
+        format.js   {}
+      end
     else
       @roles = [['User', :user], ['User manager', :user_manager], ['Admin', :admin]]
-      render :new
+      respond_to do |format|
+        format.html { render :new }
+        # format.json { head :no_content }
+        format.js   {}
+      end
     end
   end
 
@@ -30,10 +38,19 @@ class UsersController < ApplicationController
     no_password
     if @user.update(user_params)
       @users = User.all
-      redirect_to users_path
+      respond_to do |format|
+        format.html { redirect_to users_path }
+        # format.json { head :no_content }
+        format.js   {}
+      end
     else
       @roles = [['User', :user], ['User manager', :user_manager], ['Admin', :admin]]
-      render :edit
+      p @user.errors.full_messages
+      respond_to do |format|
+        format.html { render :edit }
+        # format.json { head :no_content }
+        format.js   {}
+      end
     end
   end
 

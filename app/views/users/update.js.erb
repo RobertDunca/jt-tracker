@@ -1,0 +1,6 @@
+<% if @user.errors.any? %>
+    // Display the errors on the page using the errors partial
+    $('#errors').html("<%= j render('shared/errors', object: @user) %>")
+<% else %>
+    window.location.replace("<%= users_path %>");
+<% end %>

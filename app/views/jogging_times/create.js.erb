@@ -2,13 +2,18 @@
   // Display the errors on the page using the errors partial
   $('#errors').html("<%= j render('shared/errors', object: @jogging_time) %>");
 <% else %>
-  // Remove the errors if there are any left
-  $('#errors').remove();
+  <% if current_user.user? %>
+    // Remove the errors if there are any left
+    $('#errors').remove();
 
-  $("#jogging_times").html("<%= escape_javascript(render("jogging_times")) %>");
-  $("#weekly_report_modal").html("<%= escape_javascript(render("weekly_report")) %>");
+    $("#jogging_times").html("<%= escape_javascript(render("jogging_times")) %>");
+    $("#weekly_report_modal").html("<%= escape_javascript(render("weekly_report")) %>");
 
 
-  // Clear the form
-  $('form')[0].reset();
+    // Clear the form
+    $('form')[0].reset();
+  <% else %>
+    window.location.replace("<%= jogging_times_path %>");
+  <% end %>
 <% end %>
+

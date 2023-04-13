@@ -1,6 +1,6 @@
-<%= form_with(model: @user, local: true) do |f| %>
+<%= form_with(model: @user, local: false) do |f| %>
 
-  <%= render 'shared/errors', object: f.object %>
+  <div id="errors"><%= render 'shared/errors', object: f.object %></div>
 
   <% if current_user.admin? %>
     <%= f.label :role %>

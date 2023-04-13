@@ -8,6 +8,8 @@ class User < ApplicationRecord
 
   has_many :jogging_times, dependent: :destroy
 
+  validates :username, presence: true, length: { maximum: 255 }, uniqueness: true
+
   def set_default_role
     self.role ||= :user
   end

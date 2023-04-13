@@ -50,12 +50,18 @@ class JoggingTimesController < ApplicationController
     elsif current_user.admin?
       @jogging_time = JoggingTime.new jogging_time_params
       if @jogging_time.save
-        # @jogging_times = JoggingTime.reorder :id
-        redirect_to jogging_times_path
+        respond_to do |format|
+          format.html { redirect_to jogging_times_path }
+          # format.json { head :no_content }
+          format.js   {}
+        end
       else
         users = User.all
         @users = users.map { |user| ["#{user.username}", user.id] }
-        render :new
+        respond_to do |format|
+          format.html { render :new }
+          format.js   {}
+        end
       end
 
     else
@@ -72,13 +78,20 @@ class JoggingTimesController < ApplicationController
 
   def update
       if @jogging_time.update(jogging_time_params)
-        redirect_to jogging_times_path
+        respond_to do |format|
+          format.html { redirect_to jogging_times_path }
+          # format.json { head :no_content }
+          format.js   {}
+        end
       else
         if current_user.admin?
           users = User.all
           @users = users.map { |user| ["#{user.username}", user.id] }
         end
-        render :edit
+        respond_to do |format|
+          format.html { render :edit }
+          format.js   {}
+        end
       end
 
   end
