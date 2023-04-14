@@ -16,13 +16,9 @@ class JoggingTimesController < ApplicationController
   end
 
   def new
-    if current_user.admin?
-      users = User.all
-      @users = users.map { |user| ["#{user.username}", user.id] }
-      @jogging_time = JoggingTime.new
-    else
-      redirect_to root_url
-    end
+    redirect_to root_url unless current_user.admin?
+    @users = User.pluck(:username, :id)
+    @jogging_time = JoggingTime.new
   end
 
   def create
@@ -42,7 +38,6 @@ class JoggingTimesController < ApplicationController
         weekly_report
         respond_to do |format|
           format.html { render :index }
-          # format.json { head :no_content }
           format.js   {}
         end
       end
@@ -52,12 +47,10 @@ class JoggingTimesController < ApplicationController
       if @jogging_time.save
         respond_to do |format|
           format.html { redirect_to jogging_times_path }
-          # format.json { head :no_content }
           format.js   {}
         end
       else
-        users = User.all
-        @users = users.map { |user| ["#{user.username}", user.id] }
+        @users = User.pluck(:username, :id)
         respond_to do |format|
           format.html { render :new }
           format.js   {}
@@ -70,24 +63,17 @@ class JoggingTimesController < ApplicationController
   end
 
   def edit
-    if current_user.admin?
-      users = User.all
-      @users = users.map { |user| ["#{user.username}", user.id] }
-    end
+    @users = User.pluck(:username, :id) if current_user.admin?
   end
 
   def update
       if @jogging_time.update(jogging_time_params)
         respond_to do |format|
           format.html { redirect_to jogging_times_path }
-          # format.json { head :no_content }
           format.js   {}
         end
       else
-        if current_user.admin?
-          users = User.all
-          @users = users.map { |user| ["#{user.username}", user.id] }
-        end
+        @users = User.pluck(:username, :id) if current_user.admin?
         respond_to do |format|
           format.html { render :edit }
           format.js   {}

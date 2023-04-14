@@ -5,5 +5,5 @@ Rails.application.routes.draw do
   }
   resources :users, only: %i[new create edit update index destroy]
   resources :jogging_times, only: %i[new create destroy edit update index]
-  root "application#home"
+  root "static_pages#home"
 end

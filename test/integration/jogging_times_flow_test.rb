@@ -14,7 +14,7 @@ class JoggingTimesFlowTest < ActionDispatch::IntegrationTest
     sign_in @user
     # go to home page
     get root_url
-    assert_template "application/home"
+    assert_template "static_pages/home"
     # go to jogging times
     get jogging_times_path
     assert_template "jogging_times/index"

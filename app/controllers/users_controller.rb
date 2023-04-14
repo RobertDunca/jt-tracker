@@ -1,12 +1,13 @@
 class UsersController < ApplicationController
   before_action :authenticate_user!, :has_permission
+  before_action :set_user, only: [:edit, :update, :destroy]
+  before_action :set_roles, only: [:new, :edit]
 
   def index
     @users = User.all
   end
 
   def new
-    @roles = [['User', :user], ['User manager', :user_manager], ['Admin', :admin]]
     @user = User.new
   end
 
@@ -19,7 +20,7 @@ class UsersController < ApplicationController
         format.js   {}
       end
     else
-      @roles = [['User', :user], ['User manager', :user_manager], ['Admin', :admin]]
+      # @roles = [['User', :user], ['User manager', :user_manager], ['Admin', :admin]]
       respond_to do |format|
         format.html { render :new }
         # format.json { head :no_content }
@@ -29,33 +30,26 @@ class UsersController < ApplicationController
   end
 
   def edit
-    @user = User.find_by id: params[:id]
-    @roles = [['User', :user], ['User manager', :user_manager], ['Admin', :admin]]
   end
 
   def update
-    @user = User.find_by id: params[:id]
     no_password
     if @user.update(user_params)
       @users = User.all
       respond_to do |format|
         format.html { redirect_to users_path }
-        # format.json { head :no_content }
         format.js   {}
       end
     else
-      @roles = [['User', :user], ['User manager', :user_manager], ['Admin', :admin]]
-      p @user.errors.full_messages
       respond_to do |format|
         format.html { render :edit }
-        # format.json { head :no_content }
         format.js   {}
       end
     end
   end
 
   def destroy
-    User.find(params[:id]).destroy
+    @user.destroy
     respond_to do |format|
       format.html { redirect_to request.referrer || users_path }
       # format.json { head :no_content }
@@ -64,6 +58,15 @@ class UsersController < ApplicationController
   end
 
   private
+
+    def set_user
+      @user = User.find_by(id: params[:id])
+      redirect_to(root_url) if @user.nil?
+    end
+
+    def set_roles
+      @roles = [['User', :user], ['User manager', :user_manager], ['Admin', :admin]]
+    end
 
     def user_params
       params_list = %i[username email password password_confirmation]
