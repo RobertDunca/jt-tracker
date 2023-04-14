@@ -20,7 +20,7 @@ class UsersController < ApplicationController
         format.js   {}
       end
     else
-      # @roles = [['User', :user], ['User manager', :user_manager], ['Admin', :admin]]
+      set_roles
       respond_to do |format|
         format.html { render :new }
         # format.json { head :no_content }
