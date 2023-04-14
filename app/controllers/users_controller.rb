@@ -30,9 +30,11 @@ class UsersController < ApplicationController
   end
 
   def edit
+    redirect_to users_path if @user.admin?
   end
 
   def update
+    redirect_to users_path if @user.admin?
     no_password
     if @user.update(user_params)
       @users = User.all
@@ -49,7 +51,7 @@ class UsersController < ApplicationController
   end
 
   def destroy
-    @user.destroy
+    @user.destroy unless @user.admin?
     respond_to do |format|
       format.html { redirect_to request.referrer || users_path }
       # format.json { head :no_content }
